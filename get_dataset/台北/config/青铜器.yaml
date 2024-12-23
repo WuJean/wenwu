@@ -1,0 +1,10 @@
+# 文件名，用于保存数据的 Excel 文件名
+filename: "青铜器.xlsx"
+# 爬取范围起始 UID
+range_start: 3369
+# 爬取范围结束 UID
+range_end: 3400
+# 爬取间隔
+step: 40
+# 文物之间的间隔数
+skip: 5
