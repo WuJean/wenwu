@@ -6,3 +6,6 @@ __MACOSX/
 
 # 忽略 chromedriver 文件
 chromedriver
+
+# 忽略env文件
+.env

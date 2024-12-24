@@ -124,7 +124,7 @@ def process_config(config):
             if driver:
                 driver.quit()
 
-    to_excel(f'data/台北/{config['filename']}', all_data)
+    to_excel(f'config/data_config/{config['filename']}', all_data)
     print(f"完成所有爬取，数据已保存到 {config['filename']}")
 
 
