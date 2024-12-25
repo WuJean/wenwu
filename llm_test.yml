@@ -1,0 +1,590 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: llm_test
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions: []
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      number_limits: 1
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1732779225774-source-1733902645323-target
+      source: '1732779225774'
+      sourceHandle: source
+      target: '1733902645323'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: end
+      id: 1733902645323-source-1732513343664-target
+      selected: false
+      source: '1733902645323'
+      sourceHandle: source
+      target: '1732513343664'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: if-else
+      id: 1732513069578-source-1734947746723-target
+      source: '1732513069578'
+      sourceHandle: source
+      target: '1734947746723'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1734947746723-true-17350276469480-target
+      source: '1734947746723'
+      sourceHandle: 'true'
+      target: '17350276469480'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1734947746723-310b159d-4a5d-47fc-b0f7-64ed3a4f781f-1732779225774-target
+      source: '1734947746723'
+      sourceHandle: 310b159d-4a5d-47fc-b0f7-64ed3a4f781f
+      target: '1732779225774'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 17350276469480-source-1733902645323-target
+      selected: false
+      source: '17350276469480'
+      sourceHandle: source
+      target: '1733902645323'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: Name
+          max_length: 128
+          options: []
+          required: false
+          type: text-input
+          variable: Name
+        - label: Category
+          max_length: 48
+          options: []
+          required: false
+          type: text-input
+          variable: Category
+        - label: Dynasty
+          max_length: 48
+          options: []
+          required: false
+          type: text-input
+          variable: Dynasty
+        - label: Describe
+          max_length: 256
+          options: []
+          required: false
+          type: text-input
+          variable: Describe
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: Image
+          max_length: 5
+          options: []
+          required: false
+          type: file-list
+          variable: Image
+      height: 194
+      id: '1732513069578'
+      position:
+        x: 30
+        y: 300
+      positionAbsolute:
+        x: 30
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1733902645323'
+          - result
+          variable: text
+        selected: false
+        title: 结束
+        type: end
+      height: 90
+      id: '1732513343664'
+      position:
+        x: 1246
+        y: 300
+      positionAbsolute:
+        x: 1246
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            response_format: JSON
+          mode: chat
+          name: Doubao-vision-pro-32k
+          provider: volcengine_maas
+        prompt_template:
+        - id: 387cbde2-6bad-45de-a201-211643943424
+          role: system
+          text: '## 输入要求
+
+            请提供以下字段：
+
+            • 文物名称（可选）：未提供时系统将根据描述或图片推测。
+
+            • 文物分类（可选）：请选择以下之一：
+
+            珐琅器、文房用品、水丞、礼器、尊（容器）、珐琅尊、掐丝珐琅尊、仪式用容器、仿古彝器、青铜器、金属作品、金器、雕塑、雕像、壶（容器）、金壶、执壶、银器、银壶、多穆壶、音乐戏曲、戏曲道具。
+
+            • 文物朝代（可选）：如“清康熙”“汉代”。
+
+            • 文物图片或描述（必填）：请提供清晰的图片文件或详细的文字描述。
+
+            ## 输出字段
+
+            系统将根据输入生成以下字段：
+
+            1. 文物名称：基于识别出的信息命名，符合文物命名规则。
+
+            2. 文物朝代：解析输入的文物时代信息。
+
+            3. 文物类型：从以下选项中选择1项：
+
+            珐琅器、文房用品、水丞、礼器、尊（容器）、珐琅尊、掐丝珐琅尊、仪式用容器、仿古彝器、青铜器、金属作品、金器、雕塑、雕像、壶（容器）、金壶、执壶、银器、银壶、多穆壶、音乐戏曲、戏曲道具。
+
+            4. 图案与纹样：从以下分类及选项中最多选择5项：
+
+            • 自然纹样：云纹, 火焰纹, 卷草纹, 海水纹, 海水江崖, 海水云龙, 地（自然）, 水（自然）, 海（自然）。
+
+            • 动物纹样：动物纹样, 动物图案, 想象的动物, 龙纹, 凤纹, 瑞兽, 昂首（动物）, 翻腾（动物）, 动物盘旋飞动, 动物飞动, 龙（想象的动物）,
+            凤凰, 飞龙, 龙凤, 龙的组合, 龙凤穿花。
+
+            • 植物纹样：花卉纹, 花卉纹的组合, 缠枝纹, 勾莲, 莲瓣纹, 折枝纹, 折枝花卉, 花瓣纹, 穿花纹。
+
+            • 组合纹样：云的组合, 八宝, 吉祥纹饰, 如意云纹, 龙穿花, 凤穿花。
+
+            • 特殊纹样：描绘自然的图案与纹样, 描绘动物的图案与纹样, 描绘生物的图案与纹样, 文字或符号的图案与纹样, 寿字。
+
+            5. 物件类型：从以下分类及选项中最多选择5项：
+
+            • 材质与类别：瓷器, 瓷瓶, 彩瓷, 瓷（陶瓷）, 陶瓷, 五彩瓷, 瓷碗, 釉上彩瓷, 斗彩瓷, 粉彩瓷, 青花瓷, 釉下彩瓷, 明青花,
+            宣德青花, 瓷盘。
+
+            • 具体器型：瓶（容器）, 梅瓶, 斗彩瓶, 盖瓶, 瓶（陈设）, 扁瓶, 合欢瓶, 碗（容器）, 盘（容器）, 承盘。
+
+            • 部位与细节：撇口, 鼓腹, 圈足, 溜肩, 长颈, 细颈, 肩（形制）。
+
+            6. 文物描述：系统自动生成描述，结合文学性修饰，提供文物的基本信息。
+
+            ## 分析步骤
+
+            1. 信息解析：接收输入信息，提取分类、朝代和关键特征。
+
+            2. 匹配选项：根据输入图片或描述内容，匹配到最符合的“物件类型”“图案与纹样”和“形制”，严格限定在提供选项范围内。
+
+            3. 不确定处理：若某些字段难以确定，明确标注原因并提供合理建议。
+
+            ## 输出格式
+
+            输出为 JSON 结构，例如：
+
+            {
+
+              "Name": "矾红地描金云龙纹瓶",
+
+              "Dynasty": "清康熙",
+
+              "Category": "瓷瓶",
+
+              "MotifAndPattern": ["云纹", "龙纹", "描绘生物的图案与纹样"],
+
+              "FormAndStructure": ["长颈", "撇口", "圈足"],
+
+              "Describe": "此瓶以矾红为地，描金装饰，云龙纹动感强烈，造型典雅，极具清康熙时期风格。"
+
+            }'
+        - id: 76d22961-7f3b-4443-8195-05f03318c0b6
+          role: user
+          text: '文物名称：
+
+            文物朝代：{{#1732513069578.Dynasty#}}
+
+            物件类型：{{#1732513069578.Category#}}
+
+            图案与纹样：
+
+            形制：
+
+            文物描述：{{#1732513069578.Describe#}}'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - sys
+            - files
+          enabled: true
+      height: 98
+      id: '1732779225774'
+      position:
+        x: 638
+        y: 447.99999999999994
+      positionAbsolute:
+        x: 638
+        y: 447.99999999999994
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import json\n\ndef main(arg1,arg2):\n    import json\n    if arg1:\n\
+          \        arg = arg1\n    elif arg2:\n        arg = arg2\n    try:\n    \
+          \    # 解析外层 JSON 字符串\n        tmp1 = json.loads(arg)\n        # 提取并解析内层\
+          \ JSON 字符串（去除转义）\n        # input_str = tmp1['arg1']\n        # data = json.loads(input_str)\
+          \  # 解析后去除转义\n        \n        # 返回成功结果\n        result = {\"status_code\"\
+          : 200, \"data\": tmp1}\n        return {\"result\": result}\n    except\
+          \ json.JSONDecodeError as e:\n        # 捕获 JSON 格式错误\n        result = {\"\
+          status_code\": 400, \"error\": \"Invalid JSON format\", \"details\": str(e)}\n\
+          \        return {\"result\": result}"
+        code_language: python3
+        desc: 格式化llm的返回结果，解析成功返回状态码200
+        outputs:
+          result:
+            children: null
+            type: object
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '17350276469480'
+          - text
+          variable: arg1
+        - value_selector:
+          - '1732779225774'
+          - text
+          variable: arg2
+      height: 98
+      id: '1733902645323'
+      position:
+        x: 942
+        y: 300
+      positionAbsolute:
+        x: 942
+        y: 300
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 567bc4b2-c99f-4c2b-b9ea-c970cfa51bce
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          - comparison_operator: not empty
+            id: 5e128d28-8528-45a4-be70-d8daa7dc0baf
+            value: ''
+            varType: string
+            variable_selector:
+            - '1732513069578'
+            - Describe
+          id: 'true'
+          logical_operator: and
+        - case_id: 310b159d-4a5d-47fc-b0f7-64ed3a4f781f
+          conditions:
+          - comparison_operator: not empty
+            id: c9855cb7-8d0e-4887-bd11-b6d3df1e86a3
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 310b159d-4a5d-47fc-b0f7-64ed3a4f781f
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 200
+      id: '1734947746723'
+      position:
+        x: 334
+        y: 300
+      positionAbsolute:
+        x: 334
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"图片不为空
+          进入图片理解流程","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1734947863884'
+      position:
+        x: 638
+        y: 554.9502018097864
+      positionAbsolute:
+        x: 638
+        y: 554.9502018097864
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"单独解析描述","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1735027579131'
+      position:
+        x: 638
+        y: 189.79212582170447
+      positionAbsolute:
+        x: 638
+        y: 189.79212582170447
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            response_format: JSON
+          mode: chat
+          name: Doubao-pro-32k
+          provider: volcengine_maas
+        prompt_template:
+        - id: 387cbde2-6bad-45de-a201-211643943424
+          role: system
+          text: '## 输入要求
+
+            请提供以下字段：
+
+            • 文物名称（可选）：未提供时系统将根据描述或图片推测。
+
+            • 文物分类（可选）：请选择以下之一：
+
+            珐琅器、文房用品、水丞、礼器、尊（容器）、珐琅尊、掐丝珐琅尊、仪式用容器、仿古彝器、青铜器、金属作品、金器、雕塑、雕像、壶（容器）、金壶、执壶、银器、银壶、多穆壶、音乐戏曲、戏曲道具。
+
+            • 文物朝代（可选）：如“清康熙”“汉代”。
+
+            • 文物图片或描述（必填）：请提供清晰的图片文件或详细的文字描述。
+
+            ## 输出字段
+
+            系统将根据输入生成以下字段：
+
+            1. 文物名称：基于识别出的信息命名，符合文物命名规则。
+
+            2. 文物朝代：解析输入的文物时代信息。
+
+            3. 文物类型：从以下选项中选择1项：
+
+            珐琅器、文房用品、水丞、礼器、尊（容器）、珐琅尊、掐丝珐琅尊、仪式用容器、仿古彝器、青铜器、金属作品、金器、雕塑、雕像、壶（容器）、金壶、执壶、银器、银壶、多穆壶、音乐戏曲、戏曲道具。
+
+            4. 图案与纹样：从以下分类及选项中最多选择5项：
+
+            • 自然纹样：云纹, 火焰纹, 卷草纹, 海水纹, 海水江崖, 海水云龙, 地（自然）, 水（自然）, 海（自然）。
+
+            • 动物纹样：动物纹样, 动物图案, 想象的动物, 龙纹, 凤纹, 瑞兽, 昂首（动物）, 翻腾（动物）, 动物盘旋飞动, 动物飞动, 龙（想象的动物）,
+            凤凰, 飞龙, 龙凤, 龙的组合, 龙凤穿花。
+
+            • 植物纹样：花卉纹, 花卉纹的组合, 缠枝纹, 勾莲, 莲瓣纹, 折枝纹, 折枝花卉, 花瓣纹, 穿花纹。
+
+            • 组合纹样：云的组合, 八宝, 吉祥纹饰, 如意云纹, 龙穿花, 凤穿花。
+
+            • 特殊纹样：描绘自然的图案与纹样, 描绘动物的图案与纹样, 描绘生物的图案与纹样, 文字或符号的图案与纹样, 寿字。
+
+            5. 物件类型：从以下分类及选项中最多选择5项：
+
+            • 材质与类别：瓷器, 瓷瓶, 彩瓷, 瓷（陶瓷）, 陶瓷, 五彩瓷, 瓷碗, 釉上彩瓷, 斗彩瓷, 粉彩瓷, 青花瓷, 釉下彩瓷, 明青花,
+            宣德青花, 瓷盘。
+
+            • 具体器型：瓶（容器）, 梅瓶, 斗彩瓶, 盖瓶, 瓶（陈设）, 扁瓶, 合欢瓶, 碗（容器）, 盘（容器）, 承盘。
+
+            • 部位与细节：撇口, 鼓腹, 圈足, 溜肩, 长颈, 细颈, 肩（形制）。
+
+            6. 文物描述：系统自动生成描述，结合文学性修饰，提供文物的基本信息。
+
+            ## 分析步骤
+
+            1. 信息解析：接收输入信息，提取分类、朝代和关键特征。
+
+            2. 匹配选项：根据输入图片或描述内容，匹配到最符合的“物件类型”“图案与纹样”和“形制”，严格限定在提供选项范围内。
+
+            3. 不确定处理：若某些字段难以确定，明确标注原因并提供合理建议。
+
+            ## 输出格式
+
+            输出为 JSON 结构，例如：
+
+            {
+
+              "Name": "矾红地描金云龙纹瓶",
+
+              "Dynasty": "清康熙",
+
+              "Category": "瓷瓶",
+
+              "MotifAndPattern": ["云纹", "龙纹", "描绘生物的图案与纹样"],
+
+              "FormAndStructure": ["长颈", "撇口", "圈足"],
+
+              "Describe": "此瓶以矾红为地，描金装饰，云龙纹动感强烈，造型典雅，极具清康熙时期风格。"
+
+            }'
+        - id: 76d22961-7f3b-4443-8195-05f03318c0b6
+          role: user
+          text: '文物名称：{{#1732513069578.Name#}}
+
+            文物朝代：{{#1732513069578.Dynasty#}}
+
+            物件类型：{{#1732513069578.Category#}}
+
+            图案与纹样：
+
+            形制：
+
+            文物描述：{{#1732513069578.Describe#}}'
+        selected: false
+        title: LLM (1)
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - sys
+            - files
+          enabled: false
+      height: 98
+      id: '17350276469480'
+      position:
+        x: 638
+        y: 294.2857142857143
+      positionAbsolute:
+        x: 638
+        y: 294.2857142857143
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 88.4125082557392
+      y: 18.191082942980103
+      zoom: 0.8179020585577831

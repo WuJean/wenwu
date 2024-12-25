@@ -50,14 +50,14 @@ def craw(driver, f, t ,step):
                 soup = BeautifulSoup(page_source, 'html.parser')
                 # 找到所有符合条件的包含图片的img元素（根据实际网页结构调整选择器）
                 image_elements = soup.find_all('div', class_='ug-item-wrapper')
-                # print(image_elements)
+                print(image_elements)
                 image_urls = []
                 for image in image_elements:
                     image = image.find('img')
-                    # 去除图片URL中多余的 &amp; 替换为 &
                     image_url = 'https://digitalarchive.npm.gov.tw' + image['src']
-                    image_url = image_url.replace('&amp;', '&')
-                    # print(image_url)
+                    # 修正图片链接中的转义字符
+                    image_url = image_url.replace('amp;', '')
+                    print(image_url)
                     image_urls.append(image_url)
 
                 # 提取文物的各项信息（品名、分类、时代、说明等）
@@ -124,13 +124,13 @@ def process_config(config):
             if driver:
                 driver.quit()
 
-    to_excel(f'config/data_config/{config['filename']}', all_data)
+    to_excel(f'data/台北/{config['filename']}', all_data)
     print(f"完成所有爬取，数据已保存到 {config['filename']}")
 
 
 def main():
     # 从config文件夹中读取配置
-    config_path = 'get_dataset/台北/config'
+    config_path = 'config/data_config'
     for config_file in os.listdir(config_path):
         with open(f'{config_path}/{config_file}', 'r') as f:
             config = yaml.safe_load(f)

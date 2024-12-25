@@ -143,8 +143,8 @@ def process_and_get_result(image_identifier, name, category, dynasty, describe, 
     """
     将用户输入发送给大模型处理，并返回结果。
     """
-    if not image_identifier:
-        return "请先上传图片或指定图片 URL！", None
+    # if not image_identifier:
+        # return "请先上传图片或指定图片 URL！", None
 
     inputs = {
         "Name": name,
