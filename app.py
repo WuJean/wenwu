@@ -54,15 +54,22 @@ with gr.Blocks() as demo:
     )
 
     # 上传图片
+    def upload_and_refresh(api_key, user_id, base_url, image_input, image_url_input):
+        # 调用上传图片的函数
+        image_id, status = upload_image_and_get_id(api_key, user_id, base_url, image_input, image_url_input)
+        
+        # 返回结果并刷新页面
+        return image_id, status, gr.update(value=""), gr.update(value=""), gr.update(value=""), gr.update(value=""), gr.update(value=""), gr.update(value="")
+
     image_input.change(
-        fn=upload_image_and_get_id,
-        inputs=[api_key,user_id,base_url,image_input, image_url_input],
-        outputs=[image_identifier, upload_status]
+        fn=upload_and_refresh,
+        inputs=[api_key, user_id, base_url, image_input, image_url_input],
+        outputs=[image_identifier, upload_status, artifact_name, category, dynasty, describe, MotifAndPattern_tags, FormAndStructure_tags]
     )
     image_url_input.change(
-        fn=upload_image_and_get_id,
-        inputs=[api_key,user_id,base_url,image_input, image_url_input],
-        outputs=[image_identifier, upload_status]
+        fn=upload_and_refresh,
+        inputs=[api_key, user_id, base_url, image_input, image_url_input],
+        outputs=[image_identifier, upload_status, artifact_name, category, dynasty, describe, MotifAndPattern_tags, FormAndStructure_tags]
     )
 
     # 提交并获取结果
@@ -72,10 +79,7 @@ with gr.Blocks() as demo:
         inputs=[
             image_identifier, artifact_name, category, dynasty, describe, upload_type, api_key, user_id, base_url
         ],
-        # inputs=[
-        #     image_identifier, artifact_name, category, dynasty, describe, upload_type
-        # ],
-        outputs=[result_status, artifact_name, category, dynasty, describe,MotifAndPattern_tags, FormAndStructure_tags]
+        outputs=[result_status, artifact_name, category, dynasty, describe, MotifAndPattern_tags, FormAndStructure_tags]
     )
 
 # 启动 Gradio 应用

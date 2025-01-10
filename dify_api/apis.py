@@ -222,8 +222,8 @@ def show_tags(tag_groups):
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-                background-color: #000; /* 黑色背景 */
-                color: #ccc; /* 灰色文字 */
+                background-color: #ffffff; /* 白色背景 */
+                color: #333; /* 深灰色文字 */
             }}
             header {{
                 background-color: #333;
@@ -240,19 +240,19 @@ def show_tags(tag_groups):
                 justify-content: flex-start;
             }}
             section {{
-                background-color: #222; /* 深灰色背景 */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                background-color: #f9f9f9; /* 浅灰色背景 */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
                 border-radius: 8px;
                 padding: 20px;
                 width: 100%;
                 max-width: 600px;
                 text-align: left;
-                color: #ccc; /* 灰色文字 */
+                color: #333; /* 深灰色文字 */
             }}
             section h2 {{
                 font-size: 20px;
                 margin-bottom: 10px;
-                color: #fff; /* 白色标题 */
+                color: #000; /* 黑色标题 */
             }}
             .tag-cloud {{
                 display: flex;
@@ -262,6 +262,7 @@ def show_tags(tag_groups):
             }}
             .tag {{
                 color: white; /* 标签文字颜色 */
+                background-color: #007bff; /* 蓝色标签背景 */
                 padding: 5px 10px;
                 border-radius: 5px;
                 text-decoration: none;
@@ -280,7 +281,6 @@ def show_tags(tag_groups):
     </body>
     </html>
     """
-
 def process_and_get_result_mock(image_identifier, name, category, dynasty, describe, upload_type):
     """
     模拟处理用户输入并返回结果。
