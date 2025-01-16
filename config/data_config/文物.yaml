@@ -1,0 +1,9 @@
+# 文件名，用于保存数据的 Excel 文件名
+filename: "文物.xlsx"
+# 爬取范围起始 UID
+range_start: 3000
+# 爬取范围结束 UID
+range_end: 3200
+step: 50
+# 文物之间的间隔数
+skip: 5
