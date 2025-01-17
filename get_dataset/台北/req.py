@@ -14,7 +14,7 @@ async def async_craw(page, f, t, step):
         uid = i
         try:
             url = f'https://digitalarchive.npm.gov.tw/Antique/Content?uid={i}&Dept=U'
-            await page.goto(url)  # 超时时间设置为10秒
+            await page.goto(url,timeout=20000)  # 超时时间设置为10秒
 
             # 等待指定的表格加载完成
             await page.wait_for_selector('//*[@id="collapseExample"]/div/div[1]/table/tbody', timeout=10000)
@@ -81,7 +81,7 @@ async def async_process_config(config):
     print("异步爬取开始")
     all_data = []
     step = config['step']
-    semaphore = asyncio.Semaphore(4)  # 限制并发数为4
+    semaphore = asyncio.Semaphore(5)  # 限制并发数为4
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False,proxy={'server': 'http://127.0.0.1:7890'})
